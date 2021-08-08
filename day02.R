@@ -17,32 +17,40 @@ union(vec1, vec2)
 setdiff(vec1, vec2)
 intersect(vec1, vec2)
 
+# Q1. a ~ f 값을 갖는 벡터 생성
 vec3 <- c('a', 'b', 'c', 'd', 'e', 'f')
 vec3[3] <- 'C'
 vec3[5] <- 'E'
 
+# Q1-1) 3, 5번째 데이터를 대문자로 변경
 vec3[c(3, 5)] = c('C', 'E')
 
 vec3[c(2, 4)] = toupper(vec3[c(2, 4)])
 vec3
 
+# Q1-2) 4번째 데이터 삭제
 vec3 <- vec3[-4]
 vec3
 
+# Q1-3) 위의 벡터를 factor 타입으로 변경
 vec3 = factor(vec3) # as.factor(vec3)
 class(vec3)
 vec3
 
+# Q2. 2021년 전체 날짜를 갖는 벡터 생성
 d5 = seq(as.Date('2021-01-01'), as.Date('2021-12-31'), 'day')
 d5
 
+# Q2-1) 위의 벡터를 년도를 제외한 월/일 형식으로만 출력하여 d6 생성
 d6 = as.character(d5, "%m/%d")
 d6
 
+# Q2-2) d5에서 2021년 2월 28일 뒤에 2월 29일 날짜 삽입
 # %j : 몇번째 날짜인지 확인
 as.character(as.Date("2021/02/28"), "%j")
 append(as.character(d5), "2021-02-29", after = 59)
 
+# Q2-3) 2021년 2월 28일의 위치 확인
 # 각 컬럼에 번호를 부여, names 함수를 이용해서 위치를 찾아올 수 있음
 names(d5) = 1:length(d5)
 names(d5[d5 == "2021-02-28"])
@@ -66,7 +74,7 @@ m3 = matrix(c(1, 2, 3, 4), nrow = 2, byrow = T)
 m3
 
 m3[ , 1] # 모든 행의 1열을 조회
-m3[2, ] # 2행의 모든 열을 조회회
+m3[2, ] # 2행의 모든 열을 조회
 m3[1, 1]
 
 # 새로운 행과 열을 추가 : rbind(), cbind()
@@ -94,7 +102,7 @@ m4
 rownames(m4) = c(1, 2, 3, 4, 5)
 m4
 
-# matrix형 연습문제
+# [matrix형 연습문제]
 seasons = matrix(c('봄', '여름', '가을', '겨울'), nrow = 2)
 seasons
 
@@ -108,6 +116,7 @@ seasons
 
 seasons = cbind(seasons, c('초여름', '초겨울', '한겨울'))
 
+# matrix형 데이터 생성
 no = c(1, 2, 3, 4)
 name = c('apple', 'banana', 'peach', 'berry')
 price = c(500, 200, 200, 50)
@@ -116,21 +125,26 @@ qty = c(5, 2, 7, 9)
 m1 = cbind(no, name, price, qty)
 m1
 
+# Q1-1) peach의 가격 출력
 m1[m1[, 'name'] == 'peach', 'price']
 
+# Q1-2) apple과 peach의 데이터만 출력
 m1[m1[, 'name'] == 'apple' | m1[, 'name'] == 'peach', ]
 
-
+# Q1-3) sales라는 컬럼 생성(단, sales = price * qty)
 sales = as.numeric(m1[, 'price']) * as.numeric(m1[, 'qty'])
 sales
 cbind(m1, sales)
 
+# Q1-4) 첫번째 컬럼 제거 후 각 행번호 설정
 rownames(m1) = m1[, 1]
 m1 = m1[, -1]
 m1
 
+# Q1-5) qty가 5이상인 과일 이름 출력력
 m1[m1[, 'qty'] >= 5, 'name']
 
+# Q1-6) 5번째 과일 추가(mango, 100원, 10개개)
 v1 = c('mango', '100', '10')
 m1 = rbind(m1, v1)
 m1
@@ -303,6 +317,7 @@ names(sales)
 rownames(sales)
 sales[c(2, 3, 1), ] # 행의 순서를 원하는대로 가져올 수 있다.
 
+# [혼자서 해보기]
 # Q1. data.frame()과 c()를 조합해서 표의 내용을 데이터프레임으로 만들어 출력해보세요.
 product = c('사과', '딸기', '수박')
 price = c(1800, 1500, 3000)
